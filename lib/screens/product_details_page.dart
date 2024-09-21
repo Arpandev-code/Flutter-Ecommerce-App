@@ -36,8 +36,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
           ),
           const SizedBox(height: 16),
-
-          // Product Name and Price
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(

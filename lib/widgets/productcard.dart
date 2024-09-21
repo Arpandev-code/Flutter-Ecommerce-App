@@ -4,7 +4,7 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
     this.width = 140,
-    this.aspectRetio = 1.02,
+    this.aspectRetio = 1.03,
     required this.onPress,
     required this.title,
     required this.productImageUrl,

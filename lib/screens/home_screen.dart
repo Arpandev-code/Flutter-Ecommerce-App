@@ -5,6 +5,7 @@ import 'package:ecom2/widgets/discount_banner.dart';
 import 'package:ecom2/widgets/product_grid_view.dart';
 import 'package:ecom2/widgets/searchfield.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -94,15 +95,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
               ),
               CustomSlider(products: _products),
               const SizedBox(
-                height: 20,
-              ),
-              const SizedBox(
                 height: 10,
               ),
               Expanded(
                 child: _isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(),
+                    ? LoadingAnimationWidget.flickr(
+                        leftDotColor: const Color(0xFF1A1A3F),
+                        rightDotColor: const Color(0xFFEA3799),
+                        size: 50,
                       )
                     : ProductGridView(products: _products),
               ),
