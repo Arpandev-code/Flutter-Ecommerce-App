@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecom2/controllers/product_controller.dart';
 import 'package:ecom2/views/screens/product_details_page.dart';
 import 'package:ecom2/views/widgets/carausal_slider.dart';
@@ -64,7 +65,35 @@ class ProductsScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              CustomSlider(),
+              Obx(() {
+                return productController.isLoading.value
+                    ? const Center(child: CircularProgressIndicator())
+                    : CarouselSlider.builder(
+                        options: CarouselOptions(
+                          height: 130.0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                        ),
+                        itemCount: productController.productItems.length,
+                        itemBuilder: (context, index, realIndex) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: NetworkImage(productController
+                                    .productItems[index].thumbnail
+                                    .toString()),
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          );
+                        },
+                      );
+              }),
               const SizedBox(
                 height: 10,
               ),
