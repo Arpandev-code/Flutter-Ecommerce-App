@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ProductDetailsPage extends StatefulWidget {
+class ProductDetailsPage extends StatelessWidget {
   const ProductDetailsPage(
       {super.key,
       required this.productName,
@@ -13,15 +13,10 @@ class ProductDetailsPage extends StatefulWidget {
   final String productImage;
 
   @override
-  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
-}
-
-class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.productName),
+        title: Text(productName),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -31,7 +26,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             height: 300,
             width: double.infinity,
             child: Image.network(
-              widget.productImage,
+              productImage,
               fit: BoxFit.cover,
             ),
           ),
@@ -39,7 +34,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              widget.productName,
+              productName,
               style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -49,7 +44,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              "\$${widget.productPrice}",
+              "\$$productPrice",
               style: const TextStyle(
                 fontSize: 24,
                 color: Colors.green,
