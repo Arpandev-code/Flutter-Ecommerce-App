@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecom2/controllers/product_controller.dart';
 import 'package:ecom2/views/screens/product_details_page.dart';
 import 'package:ecom2/views/widgets/carausal_slider.dart';
