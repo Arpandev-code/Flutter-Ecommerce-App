@@ -41,6 +41,7 @@ dependencies:
   loading_animation_widget: ^1.2.1
   card_loading: ^0.3.2
   get: ^4.6.6
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

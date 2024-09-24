@@ -110,6 +110,9 @@ class ProductsScreen extends StatelessWidget {
                                   productImage: controller
                                       .productItems[index].thumbnail
                                       .toString(),
+                                  images:
+                                      controller.productItems[index].images!,
+                                  isLoading: controller.isLoading.value,
                                 ),
                               );
                             },
