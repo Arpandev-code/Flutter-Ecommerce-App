@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
@@ -40,7 +41,14 @@ class ProductCard extends StatelessWidget {
                     color: const Color(0xFF979797).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Image.network(productImageUrl)),
+                  child: CachedNetworkImage(
+                    imageUrl: productImageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  )),
             ),
             const SizedBox(height: 8),
             Text(

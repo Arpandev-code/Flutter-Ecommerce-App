@@ -65,35 +65,7 @@ class ProductsScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Obx(() {
-                return productController.isLoading.value
-                    ? const Center(child: CircularProgressIndicator())
-                    : CarouselSlider.builder(
-                        options: CarouselOptions(
-                          height: 130.0,
-                          enableInfiniteScroll: true,
-                          reverse: false,
-                          autoPlay: true,
-                        ),
-                        itemCount: productController.productItems.length,
-                        itemBuilder: (context, index, realIndex) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: NetworkImage(productController
-                                    .productItems[index].thumbnail
-                                    .toString()),
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          );
-                        },
-                      );
-              }),
+              CustomSlider(),
               const SizedBox(
                 height: 10,
               ),
@@ -106,6 +78,7 @@ class ProductsScreen extends StatelessWidget {
                           size: 50,
                         )
                       : GridView.builder(
+                          physics: const BouncingScrollPhysics(),
                           itemCount: controller.productItems.length,
                           gridDelegate:
                               const SliverGridDelegateWithMaxCrossAxisExtent(
