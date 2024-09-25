@@ -1,22 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecom2/controllers/cart_controller.dart';
+import 'package:ecom2/controllers/wishlist_controller.dart';
+import 'package:ecom2/models/productmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  const ProductDetailsPage(
+  ProductDetailsPage(
       {super.key,
       required this.productName,
       required this.productDescription,
       required this.productPrice,
       required this.productImage,
       required this.images,
-      required this.isLoading});
+      required this.isLoading,
+      required this.products});
   final String productName;
   final String productDescription;
   final String productPrice;
   final String productImage;
   final List<String> images;
+  final Products products;
   final bool isLoading;
+
+  final cartController = Get.put(CartController());
+  final wishlistController = Get.put(WishlistController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +41,11 @@ class ProductDetailsPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.favorite_border),
-            onPressed: () {},
+            icon: Icon(Icons.favorite_border),
+            onPressed: () {
+              Get.snackbar("Wishlisted", "Item added to wishlist");
+              wishlistController.addTowhishlist(products);
+            },
           )
         ],
       ),
@@ -101,7 +113,7 @@ class ProductDetailsPage extends StatelessWidget {
                             color: Colors.orange,
                             fontWeight: FontWeight.bold,
                           ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -117,42 +129,55 @@ class ProductDetailsPage extends StatelessWidget {
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [],
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
               Container(
                 height: height * 0.13,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     topRight: Radius.circular(40),
                     topLeft: Radius.circular(40),
                   ),
                 ),
                 child: Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      cartController.addToCart(products);
+                      Get.snackbar(
+                        "Success",
+                        "Product added successfully",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.green,
+                        colorText: Colors.white,
+                      );
+                    },
                     child: Container(
-                  width: width * 0.7,
-                  height: height * 0.085,
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Add to Cart",
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
+                      width: width * 0.7,
+                      height: height * 0.085,
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Add to Cart",
+                          style:
+                              Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  ),
+                        ),
+                      ),
                     ),
                   ),
-                )),
+                ),
               ),
             ],
           ),
