@@ -1,6 +1,7 @@
 import 'package:ecom2/controllers/product_controller.dart';
 import 'package:ecom2/views/screens/cart_page.dart';
 import 'package:ecom2/views/screens/product_details_page.dart';
+import 'package:ecom2/views/screens/profile_page.dart';
 import 'package:ecom2/views/screens/wishlist_page.dart';
 import 'package:ecom2/views/widgets/carausal_slider.dart';
 import 'package:ecom2/views/widgets/discount_banner.dart';
@@ -59,6 +60,16 @@ class ProductsScreen extends StatelessWidget {
               color: Colors.purple,
             ),
           ),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.verified_user_outlined))
         ],
       ),
       body: SingleChildScrollView(
