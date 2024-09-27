@@ -1,4 +1,4 @@
-# ecom2
+# Flutter Ecommerce App with GetX
 
 A new Flutter project.
 
