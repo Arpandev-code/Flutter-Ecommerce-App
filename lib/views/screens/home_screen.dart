@@ -61,86 +61,100 @@ class ProductsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          Container(
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: const Searchfield(),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 60.0),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 17),
-                child: Column(
-                  children: [
-                    // const SizedBox(height: 10),
-                    const DiscountBanner(),
-                    const SizedBox(height: 10),
-                    CustomSlider(),
-                    const SizedBox(height: 10),
-                    GetX<ProductController>(builder: (controller) {
-                      return controller.isLoading.value
-                          ? LoadingAnimationWidget.flickr(
-                              leftDotColor: const Color(0xFF1A1A3F),
-                              rightDotColor: const Color(0xFFEA3799),
-                              size: 50,
-                            )
-                          : GridView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.productItems.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200,
-                                childAspectRatio: 0.7,
-                                mainAxisSpacing: 20,
-                                crossAxisSpacing: 16,
-                              ),
-                              itemBuilder: (context, index) {
-                                return ProductCard(
-                                  price: controller.productItems[index].price
-                                      .toString(),
-                                  title: controller.productItems[index].title
-                                      .toString(),
-                                  productImageUrl: controller
-                                      .productItems[index].thumbnail
-                                      .toString(),
-                                  onPress: () {
-                                    Get.to(
-                                      ProductDetailsPage(
-                                        products:
-                                            controller.productItems[index],
-                                        productName: controller
-                                            .productItems[index].title
-                                            .toString(),
-                                        productDescription: controller
-                                            .productItems[index].description
-                                            .toString(),
-                                        productPrice: controller
-                                            .productItems[index].price
-                                            .toString(),
-                                        productImage: controller
-                                            .productItems[index].thumbnail
-                                            .toString(),
-                                        images: controller
-                                            .productItems[index].images!,
-                                        isLoading: controller.isLoading.value,
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            );
-                    }),
-                  ],
-                ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: Column(
+            children: [
+              const Searchfield(),
+              const SizedBox(height: 10),
+              const DiscountBanner(),
+              const SizedBox(height: 10),
+              CustomSlider(),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Select Category",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Obx(() => DropdownButton<String>(
+                        value: productController.selectedCategory.value.isEmpty
+                            ? 'All'
+                            : productController.selectedCategory.value,
+                        items: ['All', ...productController.categories]
+                            .map((category) {
+                          return DropdownMenuItem(
+                            value: category,
+                            child: Text(category),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          productController.selectedCategory.value = value!;
+                          productController.filterByCategory(value);
+                        },
+                      )),
+                ],
               ),
-            ),
+              GetX<ProductController>(builder: (controller) {
+                return controller.isLoading.value == true
+                    ? LoadingAnimationWidget.newtonCradle(
+                        color: Colors.purple,
+                        size: 100,
+                      )
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: controller.filteredProducts.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 200,
+                          childAspectRatio: 0.7,
+                          mainAxisSpacing: 14,
+                          crossAxisSpacing: 14,
+                        ),
+                        itemBuilder: (context, index) {
+                          return ProductCard(
+                            price: controller.filteredProducts[index].price
+                                .toString(),
+                            title: controller.filteredProducts[index].title
+                                .toString(),
+                            productImageUrl: controller
+                                .filteredProducts[index].thumbnail
+                                .toString(),
+                            onPress: () {
+                              Get.to(
+                                ProductDetailsPage(
+                                  products: controller.filteredProducts[index],
+                                  productName: controller
+                                      .filteredProducts[index].title
+                                      .toString(),
+                                  productDescription: controller
+                                      .filteredProducts[index].description
+                                      .toString(),
+                                  productPrice: controller
+                                      .filteredProducts[index].price
+                                      .toString(),
+                                  productImage: controller
+                                      .filteredProducts[index].thumbnail
+                                      .toString(),
+                                  images: controller
+                                      .filteredProducts[index].images!,
+                                  isLoading: controller.isLoading.value,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+              }),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

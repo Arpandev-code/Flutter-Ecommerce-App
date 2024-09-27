@@ -1,11 +1,15 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecom2/controllers/cart_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:progress_tracker/progress_tracker.dart';
 
 class BuildCardView extends StatelessWidget {
   final List cartItem;
   final double total;
-  const BuildCardView({super.key, required this.cartItem, required this.total});
-
+  BuildCardView({super.key, required this.cartItem, required this.total});
+  final CartController controller = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,33 +42,59 @@ class BuildCardView extends StatelessWidget {
             itemCount: cartItem.length,
             itemBuilder: (context, index) {
               return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   children: [
-                    Image.network(
-                      fit: BoxFit.contain,
-                      cartItem[index].thumbnail.toString(),
-                      height: 100,
-                      width: 100,
+                    Container(
+                      margin: EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 225, 225, 225),
+                        borderRadius: BorderRadius.circular(13.0),
+                        // border: Border.all(color: Colors.grey),
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: cartItem[index].thumbnail.toString(),
+                        fit: BoxFit.contain,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                        height: 100,
+                      ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(cartItem[index].title.toString()),
-                        Text(cartItem[index].price.toString()),
+                        AutoSizeText(
+                          cartItem[index].title.toString(),
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                          minFontSize: 10,
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                        ),
+                        Text(
+                          '\$ ${cartItem[index].price.toString()}',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 17),
+                        ),
                         TextButton(
-                            onPressed: () {}, child: const Text("Remove X"))
+                            onPressed: () {
+                              // cartItem.remove(cartItem[index]);
+                              controller.removeFromCart(cartItem[index]);
+                            },
+                            child: const Text("Remove X"))
                       ],
                     ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.arrow_right_sharp,
-                        size: 50,
-                      ),
-                    ),
+                    // IconButton(
+                    //   onPressed: () {},
+                    //   icon: const Icon(
+                    //     Icons.arrow_right_sharp,
+                    //     size: 50,
+                    //   ),
+                    // ),
                   ],
                 ),
               );
@@ -73,7 +103,7 @@ class BuildCardView extends StatelessWidget {
         ),
         const Divider(),
         ListTile(
-          title: Text('\$ ${total.toString()}'),
+          title: Text('\$ ${total.toStringAsFixed(2)}'),
           subtitle: InkWell(
               onTap: () {},
               child: const Text(
@@ -88,9 +118,7 @@ class BuildCardView extends StatelessWidget {
               backgroundColor: const Color.fromARGB(255, 153, 16, 187),
               minimumSize: const Size(100, 50),
             ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () {},
             child: const Text(
               "Continue",
               style:

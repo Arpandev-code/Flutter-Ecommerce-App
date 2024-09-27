@@ -18,12 +18,12 @@ class BuildCartEmptyView extends StatelessWidget {
                 "assets/images/empty_shopping_cart.json",
                 height: 200,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               const Text(
                 "Your cart is empty",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               const Text(
                 textAlign: TextAlign.center,
                 "Just relax, let us help you find some first class products",
@@ -32,7 +32,7 @@ class BuildCartEmptyView extends StatelessWidget {
                   color: Color.fromARGB(255, 131, 131, 131),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: const BeveledRectangleBorder(

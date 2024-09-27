@@ -1,4 +1,5 @@
 import 'package:ecom2/views/screens/home_screen.dart';
+import 'package:ecom2/views/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,12 +17,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-          fontFamily: GoogleFonts.poppins().fontFamily,
+          fontFamily: GoogleFonts.montserrat().fontFamily,
           appBarTheme: const AppBarTheme(
             backgroundColor: Color.fromARGB(255, 241, 240, 240),
           ),
           scaffoldBackgroundColor: const Color.fromARGB(255, 241, 240, 240)),
-      home: ProductsScreen(),
+      home: const LoginPage(),
     );
   }
 }
