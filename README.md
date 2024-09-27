@@ -1,6 +1,6 @@
 # Flutter Ecommerce App with GetX
 
-A new Flutter project.
+A Flutter Ecommerce App with GetX State Management and Get_storage as local storage!
 
 ## Getting Started
 
