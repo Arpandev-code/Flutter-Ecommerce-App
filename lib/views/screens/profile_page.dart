@@ -34,11 +34,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 ListTile(
-                  trailing: const Icon(Icons.man_outlined),
+                  leading: const Icon(Icons.man_outlined),
                   title: Text(authController.currentUser['name']),
                 ),
                 ListTile(
-                  trailing: const Icon(Icons.email_outlined),
+                  leading: const Icon(Icons.email_outlined),
                   title: Text(authController.currentUser['email']),
                 ),
               ],
