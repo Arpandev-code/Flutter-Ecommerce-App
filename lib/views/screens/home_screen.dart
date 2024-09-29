@@ -27,7 +27,7 @@ class ProductsScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         title: const ListTile(
           leading: CircleAvatar(
-            radius: 20.0,
+            radius: 15.0,
             backgroundImage: NetworkImage(
                 "https://static.vecteezy.com/system/resources/thumbnails/024/326/967/small_2x/woman-hands-in-indian-greeting-pose-namaste-vector.jpg"),
           ),
@@ -44,7 +44,7 @@ class ProductsScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Get.to(() => WishlistPage());
+                Get.to(WishlistPage());
               },
               icon: const Icon(
                 Icons.favorite,

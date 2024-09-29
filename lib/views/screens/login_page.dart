@@ -89,7 +89,7 @@ class LoginPage extends StatelessWidget {
                             passwordController.text.trim(),
                           );
                           if (valid) {
-                            Get.offAll(() => ProductsScreen());
+                            Get.offAll(ProductsScreen());
                           }
                         }
                       },

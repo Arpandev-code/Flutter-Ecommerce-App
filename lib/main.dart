@@ -27,12 +27,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Color.fromARGB(255, 241, 240, 240),
           ),
           scaffoldBackgroundColor: const Color.fromARGB(255, 241, 240, 240)),
-      home: (authController.box.read('isLoggedIn') != null &&
-                  authController.box.read('isLoggedIn') == true &&
-                  authController.isLoggedIn.value) ==
-              true
-          ? ProductsScreen()
-          : LoginPage(),
+      home: authController.isLoggedIn.value ? ProductsScreen() : LoginPage(),
     );
   }
 }
