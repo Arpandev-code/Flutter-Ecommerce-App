@@ -41,7 +41,7 @@ class ProductDetailsPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.favorite_border),
+            icon: const Icon(Icons.favorite_border),
             onPressed: () {
               Get.snackbar("Wishlisted", "Item added to wishlist");
               wishlistController.addTowhishlist(products);

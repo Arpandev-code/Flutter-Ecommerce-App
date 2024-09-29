@@ -46,6 +46,7 @@ dependencies:
   progress_tracker: ^0.0.9
   auto_size_text: ^3.0.0
   get_storage: ^2.1.1
+  connectivity_plus: ^6.0.5
 
 dev_dependencies:
   flutter_test:

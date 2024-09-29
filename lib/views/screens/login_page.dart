@@ -6,13 +6,14 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatelessWidget {
+  LoginPage({super.key});
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   final AuthController authController = Get.put(AuthController());
 
-  LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

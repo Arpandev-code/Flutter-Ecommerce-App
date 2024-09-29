@@ -1,3 +1,4 @@
+import 'package:ecom2/Injection/network_dependacy.dart';
 import 'package:ecom2/controllers/auth_controller.dart';
 import 'package:ecom2/views/screens/home_screen.dart';
 import 'package:ecom2/views/screens/login_page.dart';
@@ -9,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 void main() async {
   await GetStorage.init();
   runApp(MyApp());
+  NetworkDependacy.init();
 }
 
 class MyApp extends StatelessWidget {
@@ -25,7 +27,12 @@ class MyApp extends StatelessWidget {
             backgroundColor: Color.fromARGB(255, 241, 240, 240),
           ),
           scaffoldBackgroundColor: const Color.fromARGB(255, 241, 240, 240)),
-      home: authController.isLoggedIn.value ? ProductsScreen() : LoginPage(),
+      home: (authController.box.read('isLoggedIn') != null &&
+                  authController.box.read('isLoggedIn') == true &&
+                  authController.isLoggedIn.value) ==
+              true
+          ? ProductsScreen()
+          : LoginPage(),
     );
   }
 }

@@ -9,11 +9,15 @@ import 'package:ecom2/views/widgets/productcard.dart';
 import 'package:ecom2/views/widgets/searchfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import '../../controllers/cart_controller.dart';
 
 class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key});
   final productController = Get.put(ProductController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +59,15 @@ class ProductsScreen extends StatelessWidget {
                 ),
               );
             },
-            icon: const Icon(
-              Icons.shopping_cart,
-              color: Colors.purple,
-            ),
+            icon: Obx(() => Badge.count(
+                  count: cartController.cartItems.length,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  child: const Icon(
+                    Icons.shopping_cart_outlined,
+                    color: Colors.purple,
+                  ),
+                )),
           ),
           IconButton(
               onPressed: () {

@@ -2,6 +2,7 @@ import 'package:ecom2/controllers/auth_controller.dart';
 import 'package:ecom2/views/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../widgets/profile_pic.dart';
 
@@ -27,22 +28,22 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Obx(() => Column(
-              children: [
-                ProfilePic(
-                  press: () {},
-                ),
-                const SizedBox(height: 20),
-                ListTile(
-                  leading: const Icon(Icons.man_outlined),
-                  title: Text(authController.currentUser['name']),
-                ),
-                ListTile(
-                  leading: const Icon(Icons.email_outlined),
-                  title: Text(authController.currentUser['email']),
-                ),
-              ],
-            )),
+        child: Column(
+          children: [
+            ProfilePic(
+              press: () {},
+            ),
+            const SizedBox(height: 20),
+            ListTile(
+              leading: const Icon(Icons.man_outlined),
+              title: Text(authController.box.read('currentUser')['name']),
+            ),
+            ListTile(
+              leading: const Icon(Icons.email_outlined),
+              title: Text(authController.box.read('currentUser')['email']),
+            ),
+          ],
+        ),
       ),
     );
   }

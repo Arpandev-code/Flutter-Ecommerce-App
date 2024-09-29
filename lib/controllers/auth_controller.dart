@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../views/screens/home_screen.dart';
-
 class AuthController extends GetxController {
   final box = GetStorage();
   var isLoggedIn = false.obs;
