@@ -9,9 +9,8 @@ import 'package:ecom2/views/widgets/productcard.dart';
 import 'package:ecom2/views/widgets/searchfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
+import 'package:badges/badges.dart' as badges;
 import '../../controllers/cart_controller.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -59,26 +58,35 @@ class ProductsScreen extends StatelessWidget {
                 ),
               );
             },
-            icon: Obx(() => Badge.count(
-                  count: cartController.cartItems.length,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  child: const Icon(
-                    Icons.shopping_cart_outlined,
-                    color: Colors.purple,
+            icon: GetX<CartController>(
+              builder: (controller) {
+                return badges.Badge(
+                  badgeContent: Text(
+                    controller.cartItems.length.toString(),
+                    style: TextStyle(color: Colors.white),
                   ),
-                )),
-          ),
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProfileScreen(),
-                  ),
+                  child: Icon(Icons.shopping_cart, color: Colors.purple),
                 );
               },
-              icon: Icon(Icons.verified_user_outlined))
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.person_2_outlined,
+                  size: 30,
+                  color: Colors.purple,
+                )),
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -134,11 +142,12 @@ class ProductsScreen extends StatelessWidget {
                             const SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: 200,
                           childAspectRatio: 0.7,
-                          mainAxisSpacing: 14,
-                          crossAxisSpacing: 14,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
                         ),
                         itemBuilder: (context, index) {
                           return ProductCard(
+                            product: controller.filteredProducts[index],
                             price: controller.filteredProducts[index].price
                                 .toString(),
                             title: controller.filteredProducts[index].title

@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:ecom2/views/screens/home_screen.dart';
 import 'package:ecom2/views/screens/login_page.dart';
 import 'package:ecom2/views/screens/no_internet_connection_page.dart';
-import 'package:flutter/material.dart';
+import 'package:ecom2/views/screens/onboarding_screen.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ConnectionController extends GetxController {
   final connectivity = Connectivity();
@@ -28,9 +28,10 @@ class ConnectionController extends GetxController {
       //   ),
       //   backgroundColor: Colors.red,
       // );
-      Get.off(const NoInternetConnectionPage());
+      // Get.off(const NoInternetConnectionPage());
+      Get.to(const NoInternetConnectionPage());
     } else {
-      Get.to(LoginPage());
+      Get.offAll(OnboardingScreen());
     }
   }
 }
