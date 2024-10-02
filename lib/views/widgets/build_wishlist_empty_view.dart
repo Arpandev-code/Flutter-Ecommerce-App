@@ -15,10 +15,10 @@ class BuildWishlistEmptyView extends StatelessWidget {
           child: Column(
             children: [
               Lottie.asset(
-                "assets/images/empty_shopping_cart.json",
+                "assets/images/empty_wishlist.json",
                 height: 200,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               const Text(
                 "Your wishlist is empty",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),

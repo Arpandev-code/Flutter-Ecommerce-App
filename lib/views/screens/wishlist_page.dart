@@ -39,7 +39,8 @@ class _WishlistPageState extends State<WishlistPage> {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: controller.wishlistItems.isNotEmpty
               ? BuildWishlistView(
-                  total: controller.total, cartItem: controller.wishlistItems)
+                  total: controller.total,
+                  wishlistItem: controller.wishlistItems)
               : const BuildWishlistEmptyView(),
         );
       }),
