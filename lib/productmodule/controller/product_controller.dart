@@ -1,5 +1,5 @@
-import 'package:ecom2/models/productmodel.dart';
-import 'package:ecom2/services/product_api.dart';
+import 'package:ecom2/productmodule/model/productmodel.dart';
+import 'package:ecom2/apimodule/product_api.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {

@@ -1,17 +1,17 @@
-import 'package:ecom2/controllers/product_controller.dart';
-import 'package:ecom2/views/screens/cart_page.dart';
-import 'package:ecom2/views/screens/product_details_page.dart';
-import 'package:ecom2/views/screens/profile_page.dart';
-import 'package:ecom2/views/screens/wishlist_page.dart';
-import 'package:ecom2/views/widgets/carausal_slider.dart';
-import 'package:ecom2/views/widgets/discount_banner.dart';
-import 'package:ecom2/views/widgets/productcard.dart';
-import 'package:ecom2/views/widgets/searchfield.dart';
+import 'package:ecom2/productmodule/controller/product_controller.dart';
+import 'package:ecom2/cartmodule/views/screens/cart_page.dart';
+import 'package:ecom2/productmodule/views/screens/product_details_page.dart';
+import 'package:ecom2/authmodule/views/screens/profile_page.dart';
+import 'package:ecom2/wishlistmodule/views/screens/wishlist_page.dart';
+import 'package:ecom2/productmodule/views/widgets/carausal_slider.dart';
+import 'package:ecom2/productmodule/views/widgets/discount_banner.dart';
+import 'package:ecom2/productmodule/views/widgets/productcard.dart';
+import 'package:ecom2/productmodule/views/widgets/searchfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:badges/badges.dart' as badges;
-import '../../controllers/cart_controller.dart';
+import '../../../cartmodule/controllers/cart_controller.dart';
 
 class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key});

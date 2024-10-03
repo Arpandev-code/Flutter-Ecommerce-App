@@ -1,9 +1,9 @@
-import 'package:ecom2/controllers/wishlist_controller.dart';
+import 'package:ecom2/wishlistmodule/controllers/wishlist_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 
-import '../../controllers/cart_controller.dart';
+import '../../../cartmodule/controllers/cart_controller.dart';
 
 class BuildWishlistView extends StatelessWidget {
   final List wishlistItem;

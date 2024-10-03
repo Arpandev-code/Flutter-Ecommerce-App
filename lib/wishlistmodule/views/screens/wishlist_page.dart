@@ -1,7 +1,7 @@
-import 'package:ecom2/controllers/cart_controller.dart';
-import 'package:ecom2/controllers/wishlist_controller.dart';
-import 'package:ecom2/views/widgets/build_card_view.dart';
-import 'package:ecom2/views/widgets/build_cart_empty_view.dart';
+import 'package:ecom2/cartmodule/controllers/cart_controller.dart';
+import 'package:ecom2/wishlistmodule/controllers/wishlist_controller.dart';
+import 'package:ecom2/cartmodule/views/widgets/build_card_view.dart';
+import 'package:ecom2/cartmodule/views/widgets/build_cart_empty_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

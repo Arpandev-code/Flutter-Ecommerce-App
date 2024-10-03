@@ -1,4 +1,4 @@
-import 'package:ecom2/controllers/product_controller.dart';
+import 'package:ecom2/productmodule/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

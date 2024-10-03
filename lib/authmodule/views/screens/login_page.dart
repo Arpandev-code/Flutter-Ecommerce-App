@@ -1,18 +1,19 @@
-import 'package:ecom2/controllers/auth_controller.dart';
-import 'package:ecom2/views/screens/login_page.dart';
+import 'package:ecom2/authmodule/controller/auth_controller.dart';
+import 'package:ecom2/productmodule/views/screens/home_screen.dart';
+import 'package:ecom2/authmodule/views/screens/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class SignupPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
+  LoginPage({super.key});
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
 
   final AuthController authController = Get.put(AuthController());
 
-  SignupPage({super.key});
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -26,7 +27,7 @@ class SignupPage extends StatelessWidget {
               SizedBox(height: height * 0.12),
               LottieBuilder.asset("assets/logo/logo.json", height: 150),
               const Text(
-                "Sign Up",
+                "Sign In",
                 style: TextStyle(
                   fontSize: 24,
                 ),
@@ -37,38 +38,9 @@ class SignupPage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
-                      controller: nameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'This field is required';
-                        } else if (value.length < 3) {
-                          return 'Name must be at least 3 characters';
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(
-                        hintText: 'Name',
-                        filled: true,
-                        fillColor: Color.fromARGB(255, 252, 245, 251),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 16.0),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                        ),
-                      ),
-                      keyboardType: TextInputType.name,
-                    ),
-                    const SizedBox(height: 15),
-                    TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        } else if (RegExp(
-                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                .hasMatch(value) ==
-                            false) {
-                          return 'Please enter a valid email address';
                         }
                         return null;
                       },
@@ -90,14 +62,7 @@ class SignupPage extends StatelessWidget {
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        } else if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
-                        } else if (RegExp(
-                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                                .hasMatch(value) ==
-                            false) {
-                          return 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character';
+                          return 'This field is required';
                         }
                         return null;
                       },
@@ -119,16 +84,13 @@ class SignupPage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          authController.signUp(
-                              nameController.text.trim(),
-                              emailController.text.trim(),
-                              passwordController.text.trim());
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
+                          bool valid = authController.login(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
                           );
+                          if (valid) {
+                            Get.offAll(ProductsScreen());
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -138,19 +100,35 @@ class SignupPage extends StatelessWidget {
                         minimumSize: const Size(double.infinity, 48),
                         shape: const StadiumBorder(),
                       ),
-                      child: const Text("Sign up"),
+                      child: const Text("Sign in"),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 16.0),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Forgot Password?',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .color!
+                                  .withOpacity(0.64),
+                            ),
+                      ),
+                    ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignupPage()));
                       },
                       child: const Text.rich(
                         TextSpan(
-                          text: "Already have an account? ",
+                          text: "Don’t have an account? ",
                           children: [
                             TextSpan(
-                              text: "Login",
+                              text: "Sign Up",
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Color.fromARGB(255, 175, 35, 235),

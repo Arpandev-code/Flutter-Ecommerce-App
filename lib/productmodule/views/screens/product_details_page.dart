@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:ecom2/controllers/cart_controller.dart';
-import 'package:ecom2/controllers/wishlist_controller.dart';
-import 'package:ecom2/models/productmodel.dart';
-import 'package:ecom2/views/widgets/dot_indicator.dart';
+import 'package:ecom2/cartmodule/controllers/cart_controller.dart';
+import 'package:ecom2/wishlistmodule/controllers/wishlist_controller.dart';
+import 'package:ecom2/productmodule/model/productmodel.dart';
+import 'package:ecom2/productmodule/views/widgets/dot_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

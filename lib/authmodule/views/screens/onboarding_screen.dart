@@ -2,8 +2,8 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../../controllers/auth_controller.dart';
-import 'home_screen.dart';
+import '../../controller/auth_controller.dart';
+import '../../../productmodule/views/screens/home_screen.dart';
 import 'login_page.dart';
 
 class OnboardingScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
-import 'package:ecom2/controllers/auth_controller.dart';
-import 'package:ecom2/controllers/package_info_controller.dart';
-import 'package:ecom2/views/screens/faq_section.dart';
-import 'package:ecom2/views/screens/login_page.dart';
+import 'package:ecom2/authmodule/controller/auth_controller.dart';
+import 'package:ecom2/authmodule/controller/package_info_controller.dart';
+import 'package:ecom2/authmodule/views/screens/faq_section.dart';
+import 'package:ecom2/authmodule/views/screens/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marquee_widget/marquee_widget.dart';

@@ -1,8 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:ecom2/views/screens/home_screen.dart';
-import 'package:ecom2/views/screens/login_page.dart';
-import 'package:ecom2/views/screens/no_internet_connection_page.dart';
-import 'package:ecom2/views/screens/onboarding_screen.dart';
+import 'package:ecom2/productmodule/views/screens/home_screen.dart';
+import 'package:ecom2/authmodule/views/screens/login_page.dart';
+import 'package:ecom2/networkmodule/views/no_internet_connection_page.dart';
+import 'package:ecom2/authmodule/views/screens/onboarding_screen.dart';
 import 'package:get/get.dart';
 
 class ConnectionController extends GetxController {
