@@ -37,6 +37,8 @@ class FaqSection extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: const ExpansionTile(
+                    backgroundColor: Colors.white,
+                    collapsedBackgroundColor: Colors.white,
                     tilePadding: EdgeInsets.all(8),
                     childrenPadding: EdgeInsets.all(8),
                     enableFeedback: false,

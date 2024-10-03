@@ -36,7 +36,7 @@ class Products {
   String? description;
   String? category;
   double? price;
-
+  double? rating;
   List<String>? images;
   String? thumbnail;
 
@@ -46,6 +46,7 @@ class Products {
       this.description,
       this.category,
       this.price,
+      this.rating,
       this.images,
       this.thumbnail});
 
@@ -55,6 +56,7 @@ class Products {
     description = json['description'];
     category = json['category'];
     price = json['price'].toDouble();
+    rating = json['rating'].toDouble();
     images = json['images'].cast<String>();
     thumbnail = json['thumbnail'];
   }

@@ -47,6 +47,13 @@ dependencies:
   auto_size_text: ^3.0.0
   get_storage: ^2.1.1
   connectivity_plus: ^6.0.5
+  avatar_glow: ^3.0.1
+  package_info_plus: ^8.0.2
+  marquee_widget: ^1.2.0
+  badges: ^3.1.2
+  smooth_page_indicator: ^1.2.0+3
+  path_provider: ^2.0.13
+  logger: ^2.4.0
 
 dev_dependencies:
   flutter_test:

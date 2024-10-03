@@ -9,25 +9,36 @@ class NoInternetConnectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset("assets/images/no_internet.json", height: 300),
-                Text(
-                  "No Internet Connection",
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                const Text(
-                    textAlign: TextAlign.center,
-                    "Please check your internet connection and try again"),
-              ],
+      body: Stack(
+        children: [
+          Opacity(
+            opacity: 0.2,
+            child: Image.asset(
+              "assets/images/Bg_image.png",
+              fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
             ),
           ),
-        ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset("assets/images/no_internet.json", height: 300),
+                  Text(
+                    "No Internet Connection",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const Text(
+                      textAlign: TextAlign.center,
+                      "Please check your internet connection and try again"),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

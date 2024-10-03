@@ -1,11 +1,27 @@
+import 'package:ecom2/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Searchfield extends StatelessWidget {
-  const Searchfield({super.key});
+  final VoidCallback onSearchTap;
+  Searchfield({super.key, required this.onSearchTap});
+
+  TextEditingController searchtextController = TextEditingController();
+
+  dispose() {
+    searchtextController.dispose();
+  }
+
+  ProductController productController = Get.put(ProductController());
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: searchtextController,
+      onSubmitted: (value) {
+        // productController.searchProducts(value);
+        onSearchTap();
+      },
       decoration: InputDecoration(
         hintText: 'Search product...',
         hintStyle: TextStyle(color: Colors.grey[600]),

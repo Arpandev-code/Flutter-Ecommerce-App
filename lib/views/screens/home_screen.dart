@@ -17,6 +17,7 @@ class ProductsScreen extends StatelessWidget {
   ProductsScreen({super.key});
   final productController = Get.put(ProductController());
   final cartController = Get.put(CartController());
+  final searchController = Get.put(SearchController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +59,12 @@ class ProductsScreen extends StatelessWidget {
                 ),
               );
             },
-            icon: GetX<CartController>(
-              builder: (controller) {
-                return badges.Badge(
-                  badgeContent: Text(
-                    controller.cartItems.length.toString(),
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  child: Icon(Icons.shopping_cart, color: Colors.purple),
-                );
-              },
+            icon: badges.Badge(
+              badgeContent: Obx(() => Text(
+                    cartController.cartItems.length.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  )),
+              child: const Icon(Icons.shopping_cart, color: Colors.purple),
             ),
           ),
           Padding(
@@ -94,7 +91,9 @@ class ProductsScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Column(
             children: [
-              const Searchfield(),
+              Searchfield(
+                onSearchTap: () {},
+              ),
               const SizedBox(height: 10),
               const DiscountBanner(),
               const SizedBox(height: 10),
@@ -134,52 +133,57 @@ class ProductsScreen extends StatelessWidget {
                         color: Colors.purple,
                         size: 100,
                       )
-                    : GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: controller.filteredProducts.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 200,
-                          childAspectRatio: 0.7,
-                          mainAxisSpacing: 8,
-                          crossAxisSpacing: 8,
-                        ),
-                        itemBuilder: (context, index) {
-                          return ProductCard(
-                            product: controller.filteredProducts[index],
-                            price: controller.filteredProducts[index].price
-                                .toString(),
-                            title: controller.filteredProducts[index].title
-                                .toString(),
-                            productImageUrl: controller
-                                .filteredProducts[index].thumbnail
-                                .toString(),
-                            onPress: () {
-                              Get.to(
-                                ProductDetailsPage(
-                                  products: controller.filteredProducts[index],
-                                  productName: controller
-                                      .filteredProducts[index].title
-                                      .toString(),
-                                  productDescription: controller
-                                      .filteredProducts[index].description
-                                      .toString(),
-                                  productPrice: controller
-                                      .filteredProducts[index].price
-                                      .toString(),
-                                  productImage: controller
-                                      .filteredProducts[index].thumbnail
-                                      .toString(),
-                                  images: controller
-                                      .filteredProducts[index].images!,
-                                  isLoading: controller.isLoading.value,
-                                ),
+                    : controller.filteredProducts.isEmpty
+                        ? const Center(child: Text("No Products Found"))
+                        : GridView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: controller.filteredProducts.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 200,
+                              childAspectRatio: 0.7,
+                              mainAxisSpacing: 8,
+                              crossAxisSpacing: 8,
+                            ),
+                            itemBuilder: (context, index) {
+                              return ProductCard(
+                                rating:
+                                    controller.filteredProducts[index].rating!,
+                                product: controller.filteredProducts[index],
+                                price: controller.filteredProducts[index].price
+                                    .toString(),
+                                title: controller.filteredProducts[index].title
+                                    .toString(),
+                                productImageUrl: controller
+                                    .filteredProducts[index].thumbnail
+                                    .toString(),
+                                onPress: () {
+                                  Get.to(
+                                    ProductDetailsPage(
+                                      products:
+                                          controller.filteredProducts[index],
+                                      productName: controller
+                                          .filteredProducts[index].title
+                                          .toString(),
+                                      productDescription: controller
+                                          .filteredProducts[index].description
+                                          .toString(),
+                                      productPrice: controller
+                                          .filteredProducts[index].price
+                                          .toString(),
+                                      productImage: controller
+                                          .filteredProducts[index].thumbnail
+                                          .toString(),
+                                      images: controller
+                                          .filteredProducts[index].images!,
+                                      isLoading: controller.isLoading.value,
+                                    ),
+                                  );
+                                },
                               );
                             },
                           );
-                        },
-                      );
               }),
             ],
           ),

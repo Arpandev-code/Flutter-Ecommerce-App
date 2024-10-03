@@ -3,10 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecom2/controllers/cart_controller.dart';
 import 'package:ecom2/controllers/wishlist_controller.dart';
 import 'package:ecom2/models/productmodel.dart';
+import 'package:ecom2/views/widgets/dot_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   ProductDetailsPage(
       {super.key,
       required this.productName,
@@ -24,9 +25,15 @@ class ProductDetailsPage extends StatelessWidget {
   final Products products;
   final bool isLoading;
 
-  final cartController = Get.put(CartController());
-  final wishlistController = Get.put(WishlistController());
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
 
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  final cartController = Get.put(CartController());
+
+  final wishlistController = Get.put(WishlistController());
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -40,13 +47,41 @@ class ProductDetailsPage extends StatelessWidget {
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.favorite_border),
-            onPressed: () {
-              Get.snackbar("Wishlisted", "Item added to wishlist");
-              wishlistController.addTowhishlist(products);
-            },
-          )
+          Obx(() => GestureDetector(
+                onTap: () {
+                  if (wishlistController.wishlistItems
+                      .contains(widget.products)) {
+                    Get.snackbar(
+                        "Wishlisted", "Item already added to wishlist");
+                    return;
+                  } else if (cartController.cartItems
+                      .contains(widget.products)) {
+                    Get.snackbar("Error", "Item already in cart");
+                    return;
+                  }
+                  Get.snackbar("Wishlisted", "Item added to wishlist");
+                  wishlistController.addTowhishlist(widget.products);
+                },
+                onDoubleTap: () {
+                  if (wishlistController.wishlistItems
+                      .contains(widget.products)) {
+                    Get.snackbar("Wishlisted", "Item removed from wishlist");
+                    wishlistController.removeFromwhishlist(widget.products);
+                  }
+                },
+                child: Padding(
+                    padding: EdgeInsets.only(right: width * 0.03),
+                    child: !wishlistController.wishlistItems
+                            .contains(widget.products)
+                        ? Icon(
+                            Icons.favorite_outline,
+                            color: Colors.black,
+                          )
+                        : Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )),
+              )),
         ],
       ),
       body: SafeArea(
@@ -54,26 +89,47 @@ class ProductDetailsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: height * 0.23,
-                width: double.infinity,
-                child: CarouselSlider.builder(
-                  itemCount: images.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return CachedNetworkImage(
-                      imageUrl: images[index],
-                      fit: BoxFit.contain,
-                      placeholder: (context, url) =>
-                          const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    );
-                  },
-                  options: CarouselOptions(
-                    aspectRatio: 16 / 9,
-                  ),
+              Hero(
+                tag: widget.productImage,
+                child: SizedBox(
+                  height: height * 0.23,
+                  width: double.infinity,
+                  child: widget.images.length == 1
+                      ? CachedNetworkImage(
+                          imageUrl: widget.images[0],
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) =>
+                              const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error))
+                      : CarouselSlider.builder(
+                          itemCount: widget.images.length,
+                          itemBuilder: (context, index, realIndex) {
+                            return CachedNetworkImage(
+                              imageUrl: widget.images[index],
+                              fit: BoxFit.contain,
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            );
+                          },
+                          options: CarouselOptions(
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                currentIndex = index;
+                              });
+                            },
+                            aspectRatio: 16 / 9,
+                            autoPlay: true,
+                          ),
+                        ),
                 ),
               ),
+              widget.images.length == 1
+                  ? const SizedBox()
+                  : DotIndicator(
+                      index: currentIndex, count: widget.images.length),
               const SizedBox(height: 15),
               Container(
                 padding: const EdgeInsets.only(
@@ -89,17 +145,17 @@ class ProductDetailsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(productName,
+                    Text(widget.productName,
                         style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 10),
-                    Text("\$ $productPrice",
+                    Text("\$ ${widget.productPrice}",
                         style: Theme.of(context)
                             .textTheme
                             .titleLarge!
                             .copyWith(color: Colors.orange, fontSize: 30)),
                     const SizedBox(height: 10),
                     Text(
-                      productDescription,
+                      widget.productDescription,
                       textAlign: TextAlign.justify,
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             color: const Color.fromARGB(255, 138, 138, 138),
@@ -149,7 +205,18 @@ class ProductDetailsPage extends StatelessWidget {
                 child: Center(
                   child: GestureDetector(
                     onTap: () {
-                      cartController.addToCart(products);
+                      if (cartController.cartItems.contains(widget.products)) {
+                        Get.snackbar(
+                          "Error",
+                          "Product already in cart",
+                          snackPosition: SnackPosition.BOTTOM,
+                          backgroundColor:
+                              const Color.fromARGB(255, 245, 22, 22),
+                          colorText: Colors.white,
+                        );
+                        return;
+                      }
+                      cartController.addToCart(widget.products);
                       Get.snackbar(
                         "Success",
                         "Product added successfully",

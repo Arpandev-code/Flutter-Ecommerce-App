@@ -8,6 +8,8 @@ class ProductController extends GetxController {
   var filteredProducts = <Products>[].obs;
   var categories = <String>[].obs;
   var selectedCategory = ''.obs;
+  var currentIndex = 0.obs;
+  var searchedProducts = [].obs;
   @override
   void onInit() {
     fetchProducts();
@@ -36,5 +38,9 @@ class ProductController extends GetxController {
           .where((product) => product.category == category)
           .toList();
     }
+  }
+
+  void changeIndex(int index) {
+    currentIndex.value = index;
   }
 }
